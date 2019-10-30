@@ -1,0 +1,16 @@
+\subsubsection{The sensor}
+
+The CMPS03 is a compass allowing us to get a bearing in order to follow a line of sight.
+It provides the bearing both through an I2C bus and a PWM signal.
+
+\paragraph{Bus I2C}
+To access the I2C bus, we use \textbf{PB\_8} as \textit{SCL} and \textbf{PB\_9} as \textit{SDA}.
+There are 2 ways to get the bearing through the I2C protocol:
+\begin{itemize}
+  \item 1-byte data bearing (0 to 255) using register 1.
+  \item 2-bytes data bearing (0 to 3599) using registers 2 and 3 (auto  incrementation).
+\end{itemize}
+
+\paragraph{PWM signal}
+To access the bearing through the PWM signal, one should look at the width of the pulse on the Pin 4 of the CMPS03 (connected to \textbf{PC\_4}).
+The pulse width varies from \SI{1}{ms} when bearing is \SI{0}{\degree} to \SI{36.99}{ms} when bearing is \SI{359.9}{\degree}. The signal goes low for 65ms between pulses.

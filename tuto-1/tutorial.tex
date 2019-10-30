@@ -1,0 +1,130 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% E.Pinault-Bigeard - e.pinault-bigeard@upsti.fr
+% http://s2i.pinault-bigeard.com
+% CC BY-NC-SA 2.0 FR - http://creativecommons.org/licenses/by-nc-sa/2.0/fr/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt,english]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Package UPSTI_Document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{inputs/commands}
+\RequirePackage{dirtree}
+%
+\RequirePackage[cache=false]{minted}
+% \RequirePackage{tcolorbox}
+% \RequirePackage{etoolbox}
+% \BeforeBeginEnvironment{minted}{\begin{tcolorbox}}%
+% \AfterEndEnvironment{minted}{\end{tcolorbox}}%
+
+% %
+\RequirePackage[abs]{overpic}
+\RequirePackage{fp}
+\RequirePackage{siunitx}
+\RequirePackage{multicol}
+
+\RequirePackage{float}
+\newfloat{codeFloat}{htbp}{lop}
+\floatname{codeFloat}{Programme}
+%
+% %
+\RequirePackage{xparse}
+\ExplSyntaxOn
+\NewDocumentCommand {\RoundingUpFunction} { m }
+ {
+  \fp_eval:n { ceil(#1) }
+ }
+\ExplSyntaxOff
+
+\ExplSyntaxOn
+\NewDocumentCommand {\RoundingDownFunction} { m }
+ {
+  \fp_eval:n { floor(#1) }
+ }
+\ExplSyntaxOff
+
+
+%---------------------------------%
+% Paramètres du package
+%---------------------------------%
+
+% Version du document (pour la compilation)
+% 1: Document prof
+% 2: Document élève
+% 3: Document à publier
+\input{variables/documentVersion}
+
+% Variante
+%\newcommand{\UPSTIvariante}{2}
+
+\input{variables/infoDoc}
+
+% Référence au programme
+%\newcommand{\UPSTIprogramme}{\EPBComp \EPBCompP{B1-02}, \EPBCompP{B2-49}, \EPBCompS{B2-50}, \EPBCompS{B2-51}, \EPBCompP{C1-07}, \EPBCompP{C1-08}}
+
+% Si l'auteur n'est pas l'auteur par défaut
+%\renewcommand{\UPSTIauteur}{WWOOOOOOWW}
+
+% Si le document est réalisé au nom de l'équipe
+%\newcommand{\UPSTIdocumentCollegial}{1}
+
+% Source
+%\newcommand{\UPSTIsource}{UPSTI}
+
+% Version du document
+\newcommand{\UPSTInumeroVersion}{1.1}
+
+%-----------------------------------------------
+\UPSTIcompileVars		% "Compile" les variables
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Début du document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\AMCassociation{\id}
+\begin{document}
+\selectlanguage{english}
+% En-tête
+\UPSTIbuildPage
+
+\tableofcontents
+\pagebreak
+\section{Loading the project}
+\input{intro}
+\section{First connection}
+\input{connect}
+\pagebreak
+\section{CNY 70}
+\input{cny70}
+
+\pagebreak
+\section{Controlling the motors}
+\input{pwm}
+
+\pagebreak
+\section{Testing other sensors}
+\begin{UPSTIactivite}[][Testing other sensors][][][To do]
+ Use the interface to test if every sensor is working.
+\end{UPSTIactivite}
+
+\subsection{VMA 306 : Ultrasonic sensor}
+\input{vma306}
+%\subsection{Compass}
+%\input{compass}
+
+\section{Pin map of the robots}
+\begin{figure}
+ \centering
+ \includegraphics[width=\textwidth]{images/right_connectors}
+ \caption{PIN map of the right connector}
+ \label{fig:right_connector}
+\end{figure}
+
+\begin{figure}
+ \centering
+ \includegraphics[width=\textwidth]{images/left_connector}
+ \caption{PIN map of the left connector}
+ \label{fig:left_connector}
+\end{figure}
+\end{document}
